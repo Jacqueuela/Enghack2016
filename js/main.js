@@ -19,25 +19,23 @@ $(document).ready(function(){
             success: function(response){
             	//console.log(response);
             	$('#myModal').modal('hide');
-        	}
+        	  }
+      });
+    });
+
+    $('#request').click(function(){
+  		 $.ajax({
+              type: "GET",
+              contentType: "application/json",
+              dataType: "json",
+              url: "http://localhost:5000/Suggestions",
+              success: function(response){
+                for (i = 0; i < 9; i++) {
+                  console.log(response[i].title);
+                }
+          	  }
         });
-
-  $('#request').click(function(){
-     $.ajax({
-            type: "GET",
-            contentType: "application/json",
-            dataType: "json",
-            url: "http://localhost:5000/Suggestions",
-            data: data,
-          success: function(response){
-            //console.log(response);
-            $('#myModal').modal('hide');
-          }
-        });
-
-
-	});
-
+      });
 });
 
 
