@@ -2,6 +2,10 @@ from urllib2 import Request, urlopen
 import json
 
 Movies = {}
+weighted_movies = []
+
+#genre_first = input("Please input first choice genre: ")
+#genre_second = input("Please input second choice genre: ")
 
 class Movie:
     def __init__(self, raw_movie):
@@ -11,6 +15,9 @@ class Movie:
         self.genre = raw_movie['genre_ids']
         self.popularity = raw_movie['popularity']
         self.rating = raw_movie['vote_average']
+        self.count = raw_movie['vote_count']
+        self.weight = 2 * self.rating * self.count / 1000 + self.popularity
+
 
 # Acquire a list of movies based off of genre
 def generate_movies(genre, page):
@@ -27,15 +34,35 @@ def add_movies(raw_movies):
 
 # Updates the total list of Movies
 def update_movies(genre):
-    for i in range(10):
+    for i in range(20):
         add_movies(generate_movies(genre, i+1))
 
-update_movies('18')
-for movie in Movies:
-    print(Movies[movie].title)
+def weigh(movie):
+    if genre_first in movie.genre:
+        movie.weight += 10.
+    elif genre_second in movie.genre:
+        movie.weight += 5.
 
-print("="*60)
+def make_list():
+    for key, movie in Movies.iteritems():
+        weighted_movies.append(movie)
+
+def sort_by_weight():
+    return sorted(weighted_movies, key=lambda movie: movie.weight, reverse=True)
+
+update_movies('18')
+#print("=" * 60)
 
 update_movies('12')
-for movie in Movies:
-    print(Movies[movie].title)
+
+#print("=" * 60)
+
+make_list()
+for movie in range(10):
+    print(weighted_movies[movie].title)
+
+print("=" * 60)
+
+weighted_movies = sort_by_weight()
+for movie in range(10):
+    print(weighted_movies[movie].title)
