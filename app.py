@@ -22,11 +22,11 @@ Genre = []
 final_list = []
 
 
-def format(dinosaur): #Error checking done here as well
+def format(input_dict): #Error checking done here as well
 	genres = []
-	genres.append(dinosaur['genre1'])
-	genres.append(dinosaur['genre2'])
-	Genre = [genre_list.map[genres[0]], genre_list.map[genres[1]]]
+	genres.append(input_dict['genre1'])
+	genres.append(input_dict['genre2'])
+	Genre = [genre_list.map[genres[0].lower()], genre_list.map[genres[1].lower()]]
 	return Genre
 
 @app.route("/Store", methods=['POST'])
@@ -52,6 +52,3 @@ def find_suggestions():
 	Genre = []
 	final_list = []
 	return jsonify({"movies":a})
-
-# @app.route("""/Output page""", methods=['POST'])
-# def give_suggestions():

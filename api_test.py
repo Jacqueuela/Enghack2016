@@ -50,7 +50,7 @@ class Recommender:
     def weigh(movie, genre_first, genre_second):
         if genre_first in movie.genre:
             movie.weight += 1.
-        elif genre_second in movie.genre:
+        if genre_second in movie.genre:
             movie.weight += 0.5
 
     # Makes a list of objects from an input dictionary
