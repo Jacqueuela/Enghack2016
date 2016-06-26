@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Movie sorter</title>
+    <link href="resources\bootstrap-3.3.6-dist\css\bootstrap.min.css" rel="stylesheet">
+    <link href="resources\jquery-ui-1.11.4.custom\jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+    <script src="resources/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <script src="resources/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <script src="js/main.js"></script>
+
+  </head>
+
+  <body>
+    <div id="header">
+      <h1>
+        MOOOOOVIES
+      </h1> 
+    <!--modal button-->
+      <div class="btn_row">
+        <a class="btn btn_center btn_main orange_btn" id="hostmodal">Host</a>
+      </div>
+    </div>
+    <!--<button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#myModal">client</button> -->
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Suggestion Form</h4>
+          </div>
+          <div class="modal-body">
+            <form id="suggestform">
+              <div id="wrapper">
+              <div>
+                  <label for="amount">time range(in minutes):</label>
+                  <input type="text" id="amount" readonly style="border:0; color:green; font-weight:bold;">
+              </div>
+                <div id="slider-range"></div>
+              </div>
+              <div class="form-group">
+                <label> 1st genre:</label>
+                <input id="tag1" name="tag1" class="form-control tags" style="width:100%;">
+              </div>
+              <div class="form-group">
+                <label>2nd Genre</label>
+                <input id="tag2" name="tag2" class="form-control tags" style="width:100%;">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-default" id="submit">Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+
+  <script>
+      $(function() {
+      $( "#slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [ 75, 300 ],
+        slide: function( event, ui ) {
+          $( "#amount" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+      });
+      $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+        " - " + $( "#slider-range" ).slider( "values", 1 ) );
+      });
+
+      $(function() {
+        var availableTags = [
+          "Action",
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Crime",
+          "Documentary",
+          "Drama",
+          "Family",
+          "Fantasy",
+          "Foreign",
+          "History",
+          "Horror",
+          "Music",
+          "Mystery",
+          "Romance",
+          "Science Fiction",
+          "TV Movie",
+          "Thriller",
+          "War",
+          "Western"
+        ];
+        $( ".tags" ).autocomplete({
+          source: availableTags
+        });
+      });
+   </script>
+</html>
