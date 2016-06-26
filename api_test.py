@@ -15,9 +15,10 @@ class Movie:
         self.rating = raw_movie['vote_average']
         self.popularity = raw_movie['popularity']
         self.count = raw_movie['vote_count']
-        self.weight =  0
-    def final_weight(self):
-        self.weight = 0.6 * self.weight / call_count + 0.3 * self.rating / 10 + 0.1 * self.popularity / 100
+        self.weight = 0
+    @property
+    def score(self):
+        return 0.7 * self.weight / call_count + 0.2 * self.rating / 10 + 0.1 * self.popularity / 100
 
 
 # Acquire a list of movies based off of genre
@@ -51,13 +52,9 @@ def update_list():
             weighted_movies.append(movie)
 
 def sort_by_weight():
-    for movie in weighted_movies:
-        movie.final_weight()
-    return sorted(weighted_movies, key=lambda movie: movie.weight, reverse=True)
+    return sorted(weighted_movies, key=lambda movie: movie.score, reverse=True)
 
-def new_entry():
-    genre_first = input("Please input your first choice of genre: ")
-    genre_second = input("Please input your second choice of genre: ")
+def new_entry(genre_first, genre_second):
     if genre_first not in checked:
         update_movies(str(genre_first))
     if genre_second not in checked:
@@ -68,14 +65,18 @@ def new_entry():
     global call_count
     call_count += 1
 
+def read_input(arr):
+    for dikt in arr:
+        new_entry(dikt['genres'][0], dikt['genres'][1])
+
 def final():
     weighted_movies = sort_by_weight()
     for index in range(30):
         print(weighted_movies[index].title)
-        print(weighted_movies[index].weight)
+        print(weighted_movies[index].score)
 
-new_entry()
-new_entry()
-new_entry()
-new_entry()
+"""
+new_entry(27, 28)
+new_entry(18, 27)
 final()
+"""
