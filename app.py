@@ -6,7 +6,9 @@ from flask.ext.api.parsers import JSONParser
 from GenreMap import Genre_Map
 from api_test import Recommender
 from api_test import Movie
+from flask.ext.cors import CORS
 app = Flask(__name__)
+CORS(app)
 #Get JSON from Front end
 #@app.route("""Form""", methods['GET'])
 
@@ -20,20 +22,22 @@ genres = []
 Genre = []
 final_list = []
 a = {}
+
 def format(dinosaur): #Error checking done here as well
-	
+ 	print (dinosaur)
+ 	#print (dinosaur.keys())
+	#genres.append(trex['genre1']) 
+	#genres.append(trex['genre2'])
 
-
-	genres.append(dinosaur['genre1']) 
-	genres.append(dinosaur['genre2'])
-	
-	Genre = [genre_list.map[genres[0]], genre_list.map[genres[1]]]
+	#Genre = [genre_list.map[genres[0]], genre_list.map[genres[1]]]
 	return Genre
 
-@app.route("/Store", methods=['POST'])
+@app.route("/Store", methods=['POST', 'OPTIONS'])
 def store_data():
-	
-	final_list.append(format(request.json))
+	trex = {}
+	trex = request.get_json()
+	print(trex['genre1'])
+	#final_list.append(format(request.get_json()))
 	
 	return jsonify({"Response" : "Entry Added"})	
 
