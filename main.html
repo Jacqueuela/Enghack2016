@@ -20,7 +20,8 @@
       </h1> 
     <!--modal button-->
       <div class="btn_row">
-        <a class="btn btn_center btn_main orange_btn" id="hostmodal">Host</a>
+        <a class="btn btn_main orange_btn" id="hostmodal">Submit</a>
+        <a class="btn btn_main orange_btn" id="request" href="result.html">Request</a>
       </div>
     </div>
     <!--<button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#myModal">client</button> -->
@@ -34,7 +35,7 @@
             <h4 class="modal-title">Suggestion Form</h4>
           </div>
           <div class="modal-body">
-            <form id="suggestform">
+            <form id="suggestform" name="suggestform">
               <div id="wrapper">
               <div>
                   <label for="amount">time range(in minutes):</label>
@@ -44,11 +45,11 @@
               </div>
               <div class="form-group">
                 <label> 1st genre:</label>
-                <input id="tag1" name="tag1" class="form-control tags" style="width:100%;">
+                <input id="tag1" name="tag1" class="form-control tags" style="width:100%;" required="required">
               </div>
               <div class="form-group">
                 <label>2nd Genre</label>
-                <input id="tag2" name="tag2" class="form-control tags" style="width:100%;">
+                <input id="tag2" name="tag2" class="form-control tags" style="width:100%;" required="required">
               </div>
             </form>
           </div>
