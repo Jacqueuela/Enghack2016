@@ -3,9 +3,8 @@ import json
 
 Movies = {}
 weighted_movies = []
-
-#genre_first = input("Please input first choice genre: ")
-#genre_second = input("Please input second choice genre: ")
+checked = []
+call_count = 0
 
 class Movie:
     def __init__(self, raw_movie):
@@ -13,10 +12,12 @@ class Movie:
         self.overview = raw_movie['overview']
         self.date = raw_movie['release_date']
         self.genre = raw_movie['genre_ids']
-        self.popularity = raw_movie['popularity']
         self.rating = raw_movie['vote_average']
+        self.popularity = raw_movie['popularity']
         self.count = raw_movie['vote_count']
-        self.weight = 2 * self.rating * self.count / 1000 + self.popularity
+        self.weight =  0
+    def final_weight(self):
+        self.weight = 0.6 * self.weight / call_count + 0.3 * self.rating / 10 + 0.1 * self.popularity / 100
 
 
 # Acquire a list of movies based off of genre
@@ -34,35 +35,47 @@ def add_movies(raw_movies):
 
 # Updates the total list of Movies
 def update_movies(genre):
-    for i in range(20):
+    for i in range(5):
         add_movies(generate_movies(genre, i+1))
+    checked.append(genre)
 
-def weigh(movie):
+def weigh(movie, genre_first, genre_second):
     if genre_first in movie.genre:
-        movie.weight += 10.
+        movie.weight += 1.
     elif genre_second in movie.genre:
-        movie.weight += 5.
+        movie.weight += 0.5
 
-def make_list():
+def update_list():
     for key, movie in Movies.iteritems():
-        weighted_movies.append(movie)
+        if movie not in weighted_movies:
+            weighted_movies.append(movie)
 
 def sort_by_weight():
+    for movie in weighted_movies:
+        movie.final_weight()
     return sorted(weighted_movies, key=lambda movie: movie.weight, reverse=True)
 
-update_movies('18')
-#print("=" * 60)
+def new_entry():
+    genre_first = input("Please input your first choice of genre: ")
+    genre_second = input("Please input your second choice of genre: ")
+    if genre_first not in checked:
+        update_movies(str(genre_first))
+    if genre_second not in checked:
+        update_movies(str(genre_second))
+    update_list()
+    for movie in weighted_movies:
+        weigh(movie, genre_first, genre_second)
+    global call_count
+    call_count += 1
 
-update_movies('12')
+def final():
+    weighted_movies = sort_by_weight()
+    for index in range(30):
+        print(weighted_movies[index].title)
+        print(weighted_movies[index].weight)
 
-#print("=" * 60)
-
-make_list()
-for movie in range(10):
-    print(weighted_movies[movie].title)
-
-print("=" * 60)
-
-weighted_movies = sort_by_weight()
-for movie in range(10):
-    print(weighted_movies[movie].title)
+new_entry()
+new_entry()
+new_entry()
+new_entry()
+final()
