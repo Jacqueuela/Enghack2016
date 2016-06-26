@@ -1,0 +1,79 @@
+  
+    #wrapper {
+      background: #fff;
+      text-align:left;
+      max-width: 600px;
+      margin: 1em auto;
+      padding: 0px 0px 10px 0px;
+    }
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background-color: #fff;
+    color:#fff;
+}
+.btn-primary {
+    background: #0099cc;
+    color: #ffffff;
+}
+    #header{
+      background-color: lightblue;
+      margin-top: 20px; 
+      text-align: center;
+      color: #fff;
+      position: absolute;
+      top: 44%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      -webkit-transform: translate(-50%, -60%);
+
+      z-index: 100;
+      width: 100%;
+      font-size: 120%;
+    }
+
+    #header .btn_row{
+      margin-top: 30px;
+      margin-bottom: 5px;
+      color:#fff;
+    }
+    .btn_center {
+      text-align: center;
+    }
+    .btn_main {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-radius: 3px;
+      width: 205px;
+      height: 45px;
+      color: white;
+    }
+    .orange_btn {
+      background-color: #F4A531;  
+      box-shadow: 0px 5px 0px #c17b1e;
+    }
+
+    .btn:focus {
+      color:#fff;
+    } 
+    .btn_main.orange_btn:hover {
+      box-shadow: 0px 3px 0px #c17b1e;
+      transform: translate(0px, 2px);
+      color:white;
+      webkit-transform:  translate(0px, 2px);
+    }
+    .centered {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin-top: -50px;
+      margin-left: -100px;
+    } 
+    .ui-slider-horizontal {
+      height: 8px;
+      width: 100%;
+    }
+    .ui-autocomplete { 
+      z-index:2147483647; 
+    }
