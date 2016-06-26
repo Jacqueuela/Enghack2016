@@ -13,7 +13,7 @@ class Movie:
         self.popularity = raw_movie['popularity']
         self.count = raw_movie['vote_count']
         self.weight = 0
-        if raw_movie['poster_path'] is not No   ne:
+        if raw_movie['poster_path'] is not None:
             self.poster = 'http://image.tmdb.org/t/p/w500' +  raw_movie['poster_path']
         else:
             self.poster = 'https://a.dilcdn.com/bl/wp-content/uploads/sites/8/2014/03/image5.jpg'
