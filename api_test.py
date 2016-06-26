@@ -29,7 +29,6 @@ def generate_movies(genre, page):
 
 # Adds total list of Movies
 def add_movies(raw_movies):
-    #keys = ['id', 'title', 'overview', 'release_date', 'genre_ids', 'popularity', 'vote_average']
     for movie_index in raw_movies['results']:
         if movie_index['id'] not in Movies:
             Movies[movie_index['id']] = Movie(movie_index)
