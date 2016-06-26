@@ -1,5 +1,5 @@
 $(document).ready(function(){
- 	
+
 
  	$('#hostmodal').click(function(event) {
 		$('#myModal').modal('show');
@@ -9,22 +9,36 @@ $(document).ready(function(){
 		 $.ajax({
             type: "POST",
             contentType: "application/json",
-            dataType: 'json',
+            dataType: "json",
             url: "http://localhost:5000/Store",
             data: JSON.stringify({
-                genre1: document.getElementById("tag1").value,
-                genre2: document.getElementById("tag2").value
+                'genre1': document.getElementById("tag1").value,
+                'genre2': document.getElementById("tag2").value
              }),
-             
+
             success: function(response){
             	//console.log(response);
             	$('#myModal').modal('hide');
         	}
         });
-		
+
+  $('#request').click(function(){
+     $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            url: "http://localhost:5000/Suggestions",
+            data: data,
+          success: function(response){
+            //console.log(response);
+            $('#myModal').modal('hide');
+          }
+        });
+
+
 	});
-	
-});	 
+
+});
 
 
 
