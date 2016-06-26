@@ -5,6 +5,8 @@ import time
 class Movie:
     def __init__(self, raw_movie):
         self.title = raw_movie['title']
+        self.id = raw_movie['id']
+        self.poster = 'http://image.tmdb.org' +  raw_movie['poster_path']
         self.overview = raw_movie['overview']
         self.date = raw_movie['release_date']
         self.genre = raw_movie['genre_ids']
@@ -78,7 +80,7 @@ class Recommender:
         arr_movies = self.list_from_dict(self.Movies)
         for movie in arr_movies:
             movie.update_score(self.call_count)
-        sorted_movies = sorted(arr_movies, key=lambda movie: movie.score, reverse=True)
+        sorted_movies = sorted(arr_movies, key=lambda movie: movie.score , reverse=True)
         return sorted_movies[0:10]
         # for movie in sorted_movies[0:30]:
         #     print(movie.title)
