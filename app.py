@@ -47,7 +47,7 @@ def find_suggestions():
 	for user_input in final_list:
 		rc.new_entry(user_input[0], user_input[1])
 	for movie in rc.final():
-		a[index] = {'title':movie.title, 'overview':movie.overview, 'rating':movie.rating}
+		a[index] = {'title':movie.title, 'overview':movie.overview, 'rating':movie.rating, 'id':movie.id, 'poster':movie.poster}
 		index+=1
 	return jsonify(a)
 	
