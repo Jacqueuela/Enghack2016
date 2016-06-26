@@ -33,7 +33,7 @@ def format(dinosaur): #Error checking done here as well
 @app.route("/Store", methods=['POST'])
 def store_data():
 	
-	#final_list.append(format(request.json))
+	final_list.append(format(request.json))
 	
 	return jsonify({"Response" : "Entry Added"})	
 
@@ -43,7 +43,7 @@ def store_data():
 def find_suggestions():
 	index = 0
 	#Pass in the array to Leo
-	final_list.append(format(request.json))
+	
 	for user_input in final_list:
 		rc.new_entry(user_input[0], user_input[1])
 	for movie in rc.final():
