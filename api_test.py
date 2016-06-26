@@ -79,7 +79,7 @@ class Recommender:
         for movie in arr_movies:
             movie.update_score(self.call_count)
         sorted_movies = sorted(arr_movies, key=lambda movie: movie.score, reverse=True)
-        return sorted_movies
+        return sorted_movies[0:10]
         # for movie in sorted_movies[0:30]:
         #     print(movie.title)
         #     print(movie.score)
