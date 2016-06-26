@@ -2,7 +2,7 @@ from urllib2 import Request, urlopen
 import json
 
 Movies = {}
-weighted_movies = []
+#weighted_movies = []
 checked = []
 call_count = 0
 
@@ -46,21 +46,18 @@ def weigh(movie, genre_first, genre_second):
     elif genre_second in movie.genre:
         movie.weight += 0.5
 
-def update_list():
-    for key, movie in Movies.iteritems():
-        if movie not in weighted_movies:
-            weighted_movies.append(movie)
-
-def sort_by_weight():
-    return sorted(weighted_movies, key=lambda movie: movie.score, reverse=True)
+def list_from_dict(dict):
+    arr = []
+    for key, movie in dict.iteritems():
+        arr.append(movie)
+    return arr
 
 def new_entry(genre_first, genre_second):
     if genre_first not in checked:
         update_movies(str(genre_first))
     if genre_second not in checked:
         update_movies(str(genre_second))
-    update_list()
-    for movie in weighted_movies:
+    for key, movie in Movies.iteritems():
         weigh(movie, genre_first, genre_second)
     global call_count
     call_count += 1
@@ -70,13 +67,12 @@ def read_input(arr):
         new_entry(dikt['genres'][0], dikt['genres'][1])
 
 def final():
-    weighted_movies = sort_by_weight()
-    for index in range(30):
-        print(weighted_movies[index].title)
-        print(weighted_movies[index].score)
+    arr_movies = list_from_dict(Movies)
+    sorted_movies = sorted(arr_movies, key=lambda movie: movie.score, reverse=True)
+    for movie in sorted_movies[0:30]:
+        print(movie.title)
+        print(movie.score)
 
-"""
 new_entry(27, 28)
 new_entry(18, 27)
 final()
-"""
