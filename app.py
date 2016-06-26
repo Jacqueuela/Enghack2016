@@ -18,12 +18,12 @@ CORS(app)
 rc = Recommender()
 genre_list = Genre_Map()
 
-genres = []
 Genre = []
 final_list = []
-a = {}
+
 
 def format(dinosaur): #Error checking done here as well
+	genres = []
 	genres.append(dinosaur['genre1'])
 	genres.append(dinosaur['genre2'])
 	Genre = [genre_list.map[genres[0]], genre_list.map[genres[1]]]
@@ -40,13 +40,18 @@ def store_data():
 def find_suggestions():
 	index = 0
 	#Pass in the array to Leo
-
+	a = []
 	for user_input in final_list:
 		rc.new_entry(user_input[0], user_input[1])
+
+	print(final_list)
 	for movie in rc.final():
-		a[index] = {'title':movie.title, 'overview':movie.overview, 'rating':movie.rating, 'id':movie.id, 'poster':movie.poster}
-		index+=1
-	return jsonify(a)
+		a.append({'title':movie.title, 'overview':movie.overview, 'rating':movie.rating, 'id':movie.id, 'poster':movie.poster, "genres" : movie.genre})
+	global Genre
+	global final_list
+	Genre = []
+	final_list = []
+	return jsonify({"movies":a})
 
 # @app.route("""/Output page""", methods=['POST'])
 # def give_suggestions():

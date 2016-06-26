@@ -6,7 +6,6 @@ class Movie:
     def __init__(self, raw_movie):
         self.title = raw_movie['title']
         self.id = raw_movie['id']
-        self.poster = 'http://image.tmdb.org/t/p/w500' +  raw_movie['poster_path']
         self.overview = raw_movie['overview']
         self.date = raw_movie['release_date']
         self.genre = raw_movie['genre_ids']
@@ -14,6 +13,10 @@ class Movie:
         self.popularity = raw_movie['popularity']
         self.count = raw_movie['vote_count']
         self.weight = 0
+        if raw_movie['poster_path'] is not No   ne:
+            self.poster = 'http://image.tmdb.org/t/p/w500' +  raw_movie['poster_path']
+        else:
+            self.poster = 'https://a.dilcdn.com/bl/wp-content/uploads/sites/8/2014/03/image5.jpg'
 
     def update_score(self, count):
         self.score = 0.7 * self.weight / count + 0.2 * self.rating / 10 + 0.1 * self.popularity / 100
@@ -62,10 +65,10 @@ class Recommender:
     def new_entry(self, genre_first, genre_second):
         if genre_first not in self.checked:
             self.update_movies(str(genre_first))
-            time.sleep(2)
+            #time.sleep(2)
         if genre_second not in self.checked:
             self.update_movies(str(genre_second))
-            time.sleep(2)
+            #time.sleep(2)
         for key, movie in self.Movies.iteritems():
             self.weigh(movie, genre_first, genre_second)
         self.call_count += 1
