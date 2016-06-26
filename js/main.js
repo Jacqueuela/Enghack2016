@@ -8,13 +8,16 @@ $(document).ready(function(){
 	$('#submit').click(function(){
 		 $.ajax({
             type: "POST",
-            url: "http://localhost:8000/Store",
-            data: {
-                Genre1: document.getElementById("tag1").value,
-                Genre2: document.getElementById("tag2").value
-             },
-             dataType: 'json',
+            contentType: "application/json",
+            dataType: 'json',
+            url: "http://localhost:5000/Store",
+            data: JSON.stringify({
+                genre1: document.getElementById("tag1").value,
+                genre2: document.getElementById("tag2").value
+             }),
+             
             success: function(response){
+            	//console.log(response);
             	$('#myModal').modal('hide');
         	}
         });
