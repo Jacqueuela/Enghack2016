@@ -6,7 +6,7 @@ class Movie:
     def __init__(self, raw_movie):
         self.title = raw_movie['title']
         self.id = raw_movie['id']
-        self.poster = 'http://image.tmdb.org' +  raw_movie['poster_path']
+        self.poster = 'http://image.tmdb.org/t/p/w500' +  raw_movie['poster_path']
         self.overview = raw_movie['overview']
         self.date = raw_movie['release_date']
         self.genre = raw_movie['genre_ids']
