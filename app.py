@@ -17,17 +17,23 @@ CORS(app)
 # 	return {'request data':request.data}
 rc = Recommender()
 genre_list = Genre_Map()
-
-Genre = []
 final_list = []
 
 
 def format(input_dict): #Error checking done here as well
 	genres = []
-	genres.append(input_dict['genre1'])
-	genres.append(input_dict['genre2'])
-	Genre = [genre_list.map[genres[0].lower()], genre_list.map[genres[1].lower()]]
-	return Genre
+	first_bool = False
+	second_bool = False
+	if input_dict['genre2'] is not None and input_dict['genre1'].lower() in genre_list.map:
+		genres.append(input_dict['genre1'])
+		first_bool = True
+	if input_dict['genre2'] is not None and input_dict['genre2'].lower() in genre_list.map:
+		genres.append(input_dict['genre2'])
+		second_bool = True
+	if first_bool and second_bool:
+		return [genre_list.map[genres[0].lower()], genre_list.map[genres[1].lower()]]
+	else:
+		 return None
 
 @app.route("/Store", methods=['POST'])
 def store_data():
