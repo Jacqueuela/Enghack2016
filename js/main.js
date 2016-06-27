@@ -30,9 +30,10 @@ $(document).ready(function(){
               dataType: "json",
               url: "http://localhost:5000/Suggestions",
               success: function(response){
-                for (i = 0; i < 9; i++) {
-                  console.log(response[i].title);
-                }
+                var movies = response["movies"]
+                $('#title').html(movies[0].title);
+                $("#poster").attr("src", movies[0].poster);
+                console.log(movies)
           	  }
         });
       });

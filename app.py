@@ -17,17 +17,23 @@ CORS(app)
 # 	return {'request data':request.data}
 rc = Recommender()
 genre_list = Genre_Map()
-
-genres = []
-Genre = []
 final_list = []
-a = {}
 
-def format(dinosaur): #Error checking done here as well
-	genres.append(dinosaur['genre1'])
-	genres.append(dinosaur['genre2'])
-	Genre = [genre_list.map[genres[0]], genre_list.map[genres[1]]]
-	return Genre
+
+def format(input_dict): #Error checking done here as well
+	genres = []
+	first_bool = False
+	second_bool = False
+	if input_dict['genre2'] is not None and input_dict['genre1'].lower() in genre_list.map:
+		genres.append(input_dict['genre1'])
+		first_bool = True
+	if input_dict['genre2'] is not None and input_dict['genre2'].lower() in genre_list.map:
+		genres.append(input_dict['genre2'])
+		second_bool = True
+	if first_bool and second_bool:
+		return [genre_list.map[genres[0].lower()], genre_list.map[genres[1].lower()]]
+	else:
+		 return None
 
 @app.route("/Store", methods=['POST'])
 def store_data():
@@ -40,13 +46,15 @@ def store_data():
 def find_suggestions():
 	index = 0
 	#Pass in the array to Leo
-
+	a = []
 	for user_input in final_list:
 		rc.new_entry(user_input[0], user_input[1])
-	for movie in rc.final():
-		a[index] = {'title':movie.title, 'overview':movie.overview, 'rating':movie.rating, 'id':movie.id, 'poster':movie.poster}
-		index+=1
-	return jsonify(a)
 
-# @app.route("""/Output page""", methods=['POST'])
-# def give_suggestions():
+	print(final_list)
+	for movie in rc.final():
+		a.append({'title':movie.title, 'overview':movie.overview, 'rating':movie.rating, 'id':movie.id, 'poster':movie.poster, "genres" : movie.genre})
+	global Genre
+	global final_list
+	Genre = []
+	final_list = []
+	return jsonify({"movies":a})
