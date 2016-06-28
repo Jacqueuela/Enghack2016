@@ -1,6 +1,4 @@
 $(document).ready(function(){
-
-
  	$('#hostmodal').click(function(event) {
 		$('#myModal').modal('show');
 	});
@@ -17,6 +15,10 @@ $(document).ready(function(){
              }),
 
             success: function(response){
+		if(response["Response"] == "Incorrect Genres"){
+			alert("incorrect genres"); //error handle here
+			return;
+		}
             	//console.log(response);
             	$('#myModal').modal('hide');
         	  }
