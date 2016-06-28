@@ -2,6 +2,21 @@ from urllib2 import Request, urlopen
 import json
 import time
 
+class Timer:
+    def __init__(self):
+        self.wait = False
+        self.wait_list = []
+
+    # Next two functions are badly made, will change later
+    def set_true(self, input_list):
+        for entity in input_list:
+            self.wait_list.append(entity)
+        self.wait = True
+
+    def set_false(self):
+        self.wait = False
+
+
 class Movie:
     def __init__(self, raw_movie):
         self.title = raw_movie['title']
