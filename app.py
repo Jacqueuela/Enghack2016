@@ -1,26 +1,19 @@
-from flask import Flask, json, jsonify, render_template
-from flask.ext.api import FlaskAPI
-from flask.ext.api.decorators import set_parsers
+from flask import Flask, json, jsonify
+from flask_cors import CORS
 from flask import request
-from flask.ext.api.parsers import JSONParser
 from GenreMap import Genre_Map
 from api_test import Recommender
 from api_test import Movie
-from flask.ext.cors import CORS
+
 app = Flask(__name__)
 CORS(app)
-#Get JSON from Front end
-#@app.route("""Form""", methods['GET'])
 
-# @set_parsers(JSONParser)
-# def form_input():
-# 	return {'request data':request.data}
 rc = Recommender()
 genre_list = Genre_Map()
 final_list = []
 
 
-def format(input_dict): #Error checking done here as well
+def format(input_dict):
 	genres = []
 	first_bool = False
 	second_bool = False
@@ -33,10 +26,13 @@ def format(input_dict): #Error checking done here as well
 	if first_bool and second_bool:
 		return [genre_list.map[genres[0].lower()], genre_list.map[genres[1].lower()]]
 	else:
-		 return None
+		return None
 
 @app.route("/Store", methods=['POST'])
 def store_data():
+        formatted_data = format(request.get_json())
+        if formatted_data is None:
+            return jsonify({"Response": "Incorrect Genres"})
 	final_list.append(format(request.get_json()))
 	return jsonify({"Response" : "Entry Added"})
 
